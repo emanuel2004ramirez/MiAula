@@ -1,0 +1,113 @@
+﻿@model MiAula.Models.Clase
+
+
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <title>Editar Clase - MiAula</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(135deg, #121212, #1e1e1e);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+        }
+
+        .edit-card {
+            background: #1c1c1c;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 196, 255, 0.3);
+            width: 100%;
+            max-width: 500px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+            .edit-card h2 {
+                text-align: center;
+                color: #00eaff;
+                margin-bottom: 1rem;
+            }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            background: #2a2a2a;
+            border: none;
+            color: #fff;
+            border-radius: 10px;
+        }
+
+            .form-control:focus {
+                background: #333;
+                outline: none;
+                box-shadow: 0 0 10px #00c4ff;
+            }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(90deg, #00c4ff, #1de9b6);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .btn-submit:hover {
+                box-shadow: 0 0 15px #00c4ff;
+                transform: translateY(-2px);
+            }
+
+ 
+    </style>
+</head>
+<body>
+    <div class="edit-card">
+        <h2>Editar Clase</h2>
+
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Nombre">Nombre</label>
+                <input asp-for="Nombre" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Grado">Grado</label>
+                <input asp-for="Grado" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Seccion">Sección</label>
+                <input asp-for="Seccion" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Horario">Horario</label>
+                <input asp-for="Horario" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn-submit">Guardar Cambios</button>
+        </form>
+    </div>
+</body>
+</html>
