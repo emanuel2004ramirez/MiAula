@@ -1,0 +1,66 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error de Registro</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffebee; /* Un color suave para indicar error */
+            color: #c62828; /* Texto rojo para el error */
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .mensaje-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+
+        .boton-volver {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #d32f2f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+            .boton-volver:hover {
+                background-color: #c62828;
+            }
+    </style>
+</head>
+<body>
+    <div class="mensaje-container">
+        <h1>❌</h1>
+        <h2>Error en el Registro</h2>
+        <p>No se pudo completar el registro. Por favor, intente de nuevo.</p>
+        <a href="URL_DEL_FORMULARIO" class="boton-volver">Volver al formulario</a>
+    </div>
+</body>
+</html>

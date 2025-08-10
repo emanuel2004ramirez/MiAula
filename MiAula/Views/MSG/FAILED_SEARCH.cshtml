@@ -1,0 +1,96 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error al Eliminar Alumno</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header, footer {
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .confirmation-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border-top: 5px solid #dc3545; /* Barra roja para indicar error */
+        }
+
+        h2 {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .boton-volver {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #dc3545; /* Botón rojo para error */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+            .boton-volver:hover {
+                background-color: #c82333;
+            }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MiAula</h1>
+    </header>
+
+    <div class="main-content">
+        <div class="confirmation-card">
+            <h2>❌</h2>
+            <h2>No se pudo encontrar al alumno</h2>
+            <p>Hubo un problema al intentar buscar el alumno. Por favor, inténtelo de nuevo o contacte al soporte.</p>
+
+            <a href="/#" class="boton-volver">Volver al inicio</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 - MiAula. Todos los derechos reservados.
+    </footer>
+
+</body>
+</html>

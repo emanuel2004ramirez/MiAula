@@ -1,7 +1,5 @@
 ﻿@model MiAula.Models.Clase
 
-
-
 <!DOCTYPE html>
 <html lang="es" data-bs-theme="dark">
 <head>
@@ -14,9 +12,24 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #e0e0e0;
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        header, footer {
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            padding: 20px;
         }
 
         .delete-card {
@@ -41,6 +54,10 @@
             color: #ccc;
         }
 
+            .info p {
+                margin: 5px 0;
+            }
+
         .buttons {
             display: flex;
             justify-content: space-between;
@@ -54,6 +71,8 @@
             cursor: pointer;
             transition: 0.3s;
             width: 48%;
+            text-align: center;
+            text-decoration: none;
         }
 
         .btn-cancelar {
@@ -77,22 +96,32 @@
     </style>
 </head>
 <body>
-    <div class="delete-card">
-        <h2>¿Estás seguro de eliminar esta clase?</h2>
+    <header>
+        <h1>MiAula</h1>
+    </header>
 
-        <div class="info">
-            <p><strong>Nombre:</strong> @Model.Nombre</p>
-            <p><strong>Grado:</strong> @Model.Grado</p>
-            <p><strong>Sección:</strong> @Model.Seccion</p>
-            <p><strong>Horario:</strong> @Model.Horario</p>
-        </div>
+    <div class="main-content">
+        <div class="delete-card">
+            <h2>¿Estás seguro de eliminar esta clase?</h2>
 
-        <form action="/Clases/Delete/@Model.Id" method="post">
-            <div class="buttons">
-                <a asp-action="Index" class="btn btn-cancelar">Cancelar</a>
-                <button type="submit" class="btn btn-eliminar">Eliminar</button>
+            <div class="info">
+                <p><strong>Nombre:</strong> @Model.Nombre</p>
+                <p><strong>Grado:</strong> @Model.Grado</p>
+                <p><strong>Sección:</strong> @Model.Seccion</p>
+                <p><strong>Horario:</strong> @Model.Horario</p>
             </div>
-        </form>
+
+            <form action="/Clases/Delete/@Model.Id" method="post">
+                <div class="buttons">
+                    <a asp-action="Index" class="btn btn-cancelar">Cancelar</a>
+                    <button type="submit" class="btn btn-eliminar">Eliminar</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <footer>
+        &copy; 2025 - MiAula. Todos los derechos reservados.
+    </footer>
 </body>
 </html>

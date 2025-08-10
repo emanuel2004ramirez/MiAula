@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>MiAula</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .primary-button {
+            padding: 10px 20px;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+
+        .secondary-button {
+            padding: 10px 20px;
+            background-color: #dc2626;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MiAula</h1>
+    </header>
+
+    <div class="container">
+        <h2>Asignar Clases a Alumno</h2>
+
+        <form id="formClasesAlumno" action="/ClasesAlumno/Create" method="post">
+            <div>
+                <label for="idAlumno">Seleccionar Alumno:</label>
+                <select id="idAlumno" name="idAlumno" required>
+                    <option value="">-- Seleccione un alumno --</option>
+                    @foreach (var alumno in Model.Alumnos)
+                    {
+                        <option value="@alumno.Id">@alumno.Nombre @alumno.Apellido</option>
+                    }
+                </select>
+            </div>
+
+            <br>
+
+            <div>
+                <p>Clases Disponibles:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Clase</th>
+                            <th>Grado</th>
+                            <th>Sección</th>
+                            <th>Horario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var clase in Model.Clases)
+                        {
+                            <tr>
+                                <td>@clase.Nombre</td>
+                                <td>@clase.Grado</td>
+                                <td>@clase.Seccion</td>
+                                <td>@clase.Horario</td>
+                            </tr>
+                            <!-- Nuevo campo oculto para enviar el ID de la clase -->
+                            <input type="hidden" name="idClases" value="@clase.Id">
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <br>
+
+            <div class="button-container">
+                <!-- Botón para asignar todas las clases -->
+                <button type="submit" class="primary-button">Asignar Todas las Clases</button>
+                <!-- Botón para volver atrás -->
+                <button type="button" class="secondary-button" onclick="window.history.back()">Volver Atrás</button>
+            </div>
+
+        </form>
+    </div>
+
+    <footer style="margin-top: 20px; text-align: center;">
+        <p>© 2025 - MiAula. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

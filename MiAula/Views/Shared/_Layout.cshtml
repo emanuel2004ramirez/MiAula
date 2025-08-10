@@ -72,29 +72,47 @@
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
+
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                                <i class="fas fa-home"></i> Home
+                       
+                        
+                       
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-chalkboard-teacher"></i> Clases
                             </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="/Clases">Ver Clases</a></li>
+                                <li><a class="dropdown-item" href="/Clases/Create">Crear Clase</a></li>
+
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
-                                <i class="fas fa-shield-alt"></i> Privacy
+                        
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-chalkboard-teacher"></i> Alumnos
                             </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="/Alumno/Create">Agregar alumno</a></li>
+                                <li><a class="dropdown-item" href="/Alumno/Buscar_Alumno">Buscar alumno</a></li>
+                                <li><a class="dropdown-item" href="/ClasesAlumno/indexSeccion">Agregar Clases </a></li>
+                                <li><a class="dropdown-item" href="/Clases/Horario">Horario</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-info-circle"></i> About
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-chalkboard-teacher"></i> Planificacion
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Clases">
-                                <i class="fas fa-info-circle"></i> Clases
-                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="/Planificacion/index2">Ver Planificaciones</a></li>
+                                <li><a class="dropdown-item" href="/Planificacion">Crear Planificacion</a></li>
+
+                            </ul>
                         </li>
 
                     </ul>

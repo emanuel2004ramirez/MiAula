@@ -42,6 +42,30 @@ namespace MiAula.Services
 
         }
 
+        public static List<Clase> get_Clases_bySeccionGrado(string seccion, string Grado)
+        {
+            List<Clase> clases = new List<Clase>();
+            HttpClient client = new HttpClient();
+
+
+
+            string url = ConexionAPI.URLBase + "/Clase/Clase?seccion=" + seccion + "&Grado=" + Grado;
+            
+            var postTask = client.GetAsync(url);
+
+            var result = postTask.Result;
+
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                var resultadoTask = result.Content.ReadFromJsonAsync<List<Clase>>();
+                resultadoTask.Wait();
+                clases = resultadoTask.Result;
+                return clases;
+            }
+
+            return clases;
+        }
+
         public static bool Edit_Clase(int id, string Nombre, string Grado, string Seccion, string Horario)
         {
             HttpClient client = new HttpClient();
@@ -109,5 +133,45 @@ namespace MiAula.Services
             }
             return false;
         }
+
+        public static List<Clase> ClaseSinPlanificacion(string grado,string seccion)
+        {
+
+
+            List<Clase> clases = new List<Clase>();
+            HttpClient client = new HttpClient();
+            string url = ConexionAPI.URLBase + "/Clase/ClaseSInP?grado="+grado+"&seccion="+seccion;
+            var getTask = client.GetAsync(url);
+            getTask.Wait();
+            var result = getTask.Result;
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                clases = result.Content.ReadFromJsonAsync<List<Clase>>().Result;
+                return clases;
+            }
+            return clases;
+        }
+
+        public static List<Clase> ClaseConPlanificacion(string grado, string seccion)
+        {
+
+
+            List<Clase> clases = new List<Clase>();
+            HttpClient client = new HttpClient();
+            string url = ConexionAPI.URLBase + "/Clase/ClaseConP?grado=" + grado + "&seccion=" + seccion;
+            var getTask = client.GetAsync(url);
+            getTask.Wait();
+            var result = getTask.Result;
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                clases = result.Content.ReadFromJsonAsync<List<Clase>>().Result;
+                return clases;
+            }
+            return clases;
+        }
+
+
     }
-}
+    }
+
+

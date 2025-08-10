@@ -1,125 +1,81 @@
-﻿@model MiAula.Models.Clase
-
-<!DOCTYPE html>
-<html lang="es" data-bs-theme="dark">
+﻿<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <title>Crear Clase - MiAula</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiAula - Crear Clase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #121212, #1e1e1e);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
         }
-
-        .form-card {
-            background-color: #1c1c1c;
-            padding: 2rem 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
-            width: 100%;
-            max-width: 600px;
-            animation: fadeIn 0.6s ease-in-out;
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #00e5ff;
-        }
-
-        form {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.3rem;
-        }
-
-        label {
-            margin-bottom: 0.5rem;
-            color: #ccc;
-            display: block;
-            font-size: 0.95rem;
-        }
-
-        input[type="text"],
-        select {
-            width: 100%;
-            padding: 10px 12px;
-            background-color: #2c2c2c;
-            color: #fff;
-            border: 1px solid #444;
-            border-radius: 10px;
-            font-size: 1rem;
-        }
-
-        .btn-submit {
-            margin-top: 1rem;
-            width: 100%;
-            background: linear-gradient(90deg, #00c6ff, #0072ff);
-            color: white;
-            font-weight: bold;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1rem;
-        }
-
-            .btn-submit:hover {
-                box-shadow: 0 0 10px #00c6ff;
-                transform: scale(1.02);
-            }
-
     </style>
 </head>
-<body>
-    <div class="form-card">
-        <h2>Crear Nueva Clase</h2>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <header class="bg-white shadow-md p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-800">MiAula</h1>
+    </header>
 
-        <form action="/Clases/Create" method="post">
-            <div>
-                <label for="Nombre">Nombre de la Clase</label>
-                <input asp-for="Nombre" type="text" id="Nombre" required />
-            </div>
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800 text-center">Crear Nueva Clase</h2>
 
-            <div>
-                <label for="Grado">Grado</label>
-                <select asp-for="Grado" id="Grado" required>
-                    <option value="">Seleccione un grado</option>
-                    <option value="Primero">Primero</option>
-                    <option value="Segundo">Segundo</option>
-                </select>
-            </div>
+            <!-- El 'action' del formulario apunta al controlador 'Home' y la acción 'Create' -->
+            <!-- El 'method="post"' es una buena práctica para enviar datos del formulario -->
+            <form action="/Clase/Create" method="post" class="space-y-6">
+                <!-- Campo para el Nombre -->
+                <div>
+                    <label for="Nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                    <input type="text" id="Nombre" name="Nombre" required
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
 
-            <div>
-                <label for="Seccion">Sección</label>
-                <select asp-for="Seccion" id="Seccion" required>
-                    <option value="">Seleccione una sección</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                </select>
-            </div>
+                <!-- Campo para el Grado, ahora como un menú desplegable -->
+                <div>
+                    <label for="Grado" class="block text-sm font-medium text-gray-700">Grado</label>
+                    <select id="Grado" name="Grado" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">Selecciona un Grado</option>
+                        <option value="1°">1°</option>
+                        <option value="2°">2°</option>
+                        <option value="3°">3°</option>
+                        <option value="4°">4°</option>
+                        <option value="5°">5°</option>
+                        <option value="6°">6°</option>
+                    </select>
+                </div>
 
-            <div>
-                <label for="Horario">Horario</label>
-                <select asp-for="Horario" id="Horario" required>
-                    <option value="">Seleccione un horario</option>
-                    <option value="7:00 - 9:00">7:00 - 9:00</option>
-                    <option value="9:00 - 11:00">9:00 - 11:00</option>
-                    <option value="11:00 - 13:00">11:00 - 13:00</option>
-                </select>
-            </div>
+                <!-- Campo para la Seccion, ahora como un menú desplegable -->
+                <div>
+                    <label for="Seccion" class="block text-sm font-medium text-gray-700">Seccion</label>
+                    <select id="Seccion" name="Seccion" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">Selecciona una Sección</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                    </select>
+                </div>
 
-            <button type="submit" class="btn-submit">Guardar Clase</button>
-        </form>
-    </div>
+                <!-- Campo para el Horario -->
+                <div>
+                    <label for="Horario" class="block text-sm font-medium text-gray-700">Horario</label>
+                    <input type="text" id="Horario" name="Horario" required
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+
+                <!-- Botón de envío -->
+                <button type="submit"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+                    Crear Clase
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white p-4 text-center">
+        <p>© 2025 - MiAula. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>
-

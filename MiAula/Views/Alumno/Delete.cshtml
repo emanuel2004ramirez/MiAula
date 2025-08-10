@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar Eliminación</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header, footer {
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .confirmation-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border-top: 5px solid #dc3545; /* Barra de color para destacar la advertencia */
+        }
+
+        h2 {
+            color: #dc3545; /* Color rojo para el título de advertencia */
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .student-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            text-align: left;
+            border: 1px solid #e2e6ea;
+        }
+
+            .student-info p {
+                margin: 5px 0;
+                color: #333;
+            }
+
+                .student-info p strong {
+                    color: #000;
+                }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .boton {
+            flex-grow: 1;
+            padding: 12px 25px;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .boton-cancelar {
+            background-color: #6c757d;
+        }
+
+            .boton-cancelar:hover {
+                background-color: #5a6268;
+            }
+
+        .boton-eliminar {
+            background-color: #dc3545;
+            border: none;
+        }
+
+            .boton-eliminar:hover {
+                background-color: #c82333;
+            }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MiAula</h1>
+    </header>
+
+    <div class="main-content">
+        <div class="confirmation-card">
+            <h2>¡Advertencia!</h2>
+            <p>¿Estás seguro de que quieres eliminar al siguiente alumno? Esta acción no se puede deshacer.</p>
+
+            <div class="student-info">
+                <p><strong>ID:</strong> @Model.Id</p>
+                <p><strong>Nombre:</strong> @Model.Nombre</p>
+                <p><strong>Apellido:</strong> @Model.Apellido</p>
+            </div>
+
+            <div class="button-group">
+                <a href="Buscar_Alumno" class="boton boton-cancelar">Cancelar</a>
+                <form action="@Model.Id" method="post">
+
+                    <button type="submit">Eliminar</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 - MiAula. Todos los derechos reservados.
+    </footer>
+
+</body>
+</html>

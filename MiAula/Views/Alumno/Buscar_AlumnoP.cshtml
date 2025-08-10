@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información del Alumno</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Organiza los elementos verticalmente */
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header, footer {
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .main-content {
+            flex-grow: 1; /* Permite que el contenido principal ocupe el espacio restante */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+            .info-item:last-child {
+                border-bottom: none;
+            }
+
+        .info-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .info-value {
+            color: #333;
+            text-align: right;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .boton {
+            flex-grow: 1;
+            padding: 12px 25px;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .boton-actualizar {
+            background-color: #007BFF;
+            margin-right: 10px;
+        }
+
+            .boton-actualizar:hover {
+                background-color: #0056b3;
+            }
+
+        .boton-eliminar {
+            background-color: #dc3545;
+        }
+
+            .boton-eliminar:hover {
+                background-color: #c82333;
+            }
+
+        .boton-volver {
+            display: inline-block;
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+            .boton-volver:hover {
+                background-color: #5a6268;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MiAula</h1>
+    </header>
+
+    <div class="main-content">
+        <div class="card-container">
+            <h2>Información del Alumno</h2>
+
+            <div class="info-item">
+                <span class="info-label">ID:</span>
+                <span class="info-value">@Model.Id</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Nombre:</span>
+                <span class="info-value">@Model.Nombre</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Apellido:</span>
+                <span class="info-value">@Model.Apellido</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Fecha de Nacimiento:</span>
+                <span class="info-value">@Model.Fecha_Nacimiento</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Grado:</span>
+                <span class="info-value">@Model.Grado</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Sección:</span>
+                <span class="info-value">@Model.Seccion</span>
+            </div>
+
+            <div class="button-group">
+                <a href="Edit/@Model.Id" class="boton boton-actualizar">Actualizar</a>
+                <a href="Delete/@Model.Id" class="boton boton-eliminar">Eliminar</a>
+            </div>
+
+            <a href="Buscar_Alumno" class="boton-volver">Volver a la búsqueda</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 - MiAula. Todos los derechos reservados.
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Grado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #28a745;
+            --background-color: #f8f9fa;
+            --card-bg-color: #ffffff;
+            --text-color: #343a40;
+            --header-footer-bg: #343a40;
+            --header-footer-text: #ffffff;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--header-footer-bg);
+            color: var(--header-footer-text);
+            padding: 1.5em 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            header h1 {
+                margin: 0;
+                font-weight: 600;
+            }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3em 1em;
+        }
+
+            main h3 {
+                color: var(--primary-color);
+                margin-bottom: 2em;
+                font-size: 1.5em;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 960px;
+            width: 100%;
+        }
+
+        .grade-card {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 2em;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .grade-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            }
+
+            .grade-card h2 {
+                margin: 0;
+                font-size: 2.5em;
+                color: var(--primary-color);
+                font-weight: 600;
+            }
+
+            .grade-card p {
+                margin-top: 0.5em;
+                color: #6c757d;
+            }
+
+        footer {
+            background-color: var(--header-footer-bg);
+            color: var(--header-footer-text);
+            text-align: center;
+            padding: 1.5em 0;
+            margin-top: auto;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MiAula</h1>
+    </header>
+
+    <main>
+        <h3>Seccion: @Model</h3>
+        <div class="container">
+            <form action="Create" method="get">
+                <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="grade-card">
+                    <h2>1º Grado</h2>
+                    <p>Ingresar a 1º</p>
+                    <input name="Seccion" value="@Model" type="hidden" />
+                    <input name="Grado" value="1°" type="hidden" />
+                </a>
+            </form>
+
+            <form action="Create" method="post">
+                <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="grade-card">
+                    <h2>2º Grado</h2>
+                    <p>Ingresar a 2º</p>
+                    <input name="Seccion" value="@Model" type="hidden" />
+                    <input name="Grado" value="2°" type="hidden" />
+                </a>
+            </form>
+
+            <form action="Create" method="post">
+                <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="grade-card">
+                    <h2>3º Grado</h2>
+                    <p>Ingresar a 3º</p>
+                    <input name="Seccion" value="@Model" type="hidden" />
+                    <input name="Grado" value="3°" type="hidden" />
+                </a>
+            </form>
+
+            <form action="Create" method="post">
+                <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="grade-card">
+                    <h2>4º Grado</h2>
+                    <p>Ingresar a 4º</p>
+                    <input name="Seccion" value="@Model" type="hidden" />
+                    <input name="Grado" value="4°" type="hidden" />
+                </a>
+            </form>
+
+            <form action="Create" method="post">
+                <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="grade-card">
+                    <h2>5º Grado</h2>
+                    <p>Ingresar a 5º</p>
+                    <input name="Seccion" value="@Model" type="hidden" />
+                    <input name="Grado" value="5°" type="hidden" />
+                </a>
+            </form>
+
+            <form action="Create" method="post">
+                <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="grade-card">
+                    <h2>6º Grado</h2>
+                    <p>Ingresar a 6º</p>
+                    <input name="Seccion" value="@Model" type="hidden" />
+                    <input name="Grado" value="6°" type="hidden" />
+                </a>
+            </form>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 - MiAula. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

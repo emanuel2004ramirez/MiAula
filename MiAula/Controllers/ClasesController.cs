@@ -30,7 +30,7 @@ namespace MiAula.Controllers
         public ActionResult Create(string Nombre , string Grado,string Seccion,string Horario)
         {
             ClaseAPI.Create_Clase(Nombre,Grado,Seccion,Horario);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("index","Home");
         }
 
         // GET: ClasesController/Edit/5

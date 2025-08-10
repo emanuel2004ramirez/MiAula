@@ -11,11 +11,26 @@
         body {
             background: linear-gradient(135deg, #121212, #1e1e1e);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        header, footer {
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .main-content {
+            flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #e0e0e0;
+            padding: 20px;
         }
 
         .edit-card {
@@ -28,11 +43,11 @@
             animation: fadeInUp 0.8s ease;
         }
 
-            .edit-card h2 {
-                text-align: center;
-                color: #00eaff;
-                margin-bottom: 1rem;
-            }
+        .edit-card h2 {
+            text-align: center;
+            color: #00eaff;
+            margin-bottom: 1rem;
+        }
 
         .form-group {
             margin-bottom: 1rem;
@@ -53,11 +68,11 @@
             border-radius: 10px;
         }
 
-            .form-control:focus {
-                background: #333;
-                outline: none;
-                box-shadow: 0 0 10px #00c4ff;
-            }
+        .form-control:focus {
+            background: #333;
+            outline: none;
+            box-shadow: 0 0 10px #00c4ff;
+        }
 
         .btn-submit {
             width: 100%;
@@ -69,45 +84,70 @@
             border-radius: 10px;
             cursor: pointer;
             transition: 0.3s;
+            margin-top: 20px;
         }
 
-            .btn-submit:hover {
-                box-shadow: 0 0 15px #00c4ff;
-                transform: translateY(-2px);
-            }
-
- 
+        .btn-submit:hover {
+            box-shadow: 0 0 15px #00c4ff;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
-    <div class="edit-card">
-        <h2>Editar Clase</h2>
+    <header>
+        <h1>MiAula</h1>
+    </header>
 
-        <form asp-action="Edit" method="post">
-            <input type="hidden" asp-for="Id" />
+    <div class="main-content">
+        <div class="edit-card">
+            <h2>Editar Clase</h2>
 
-            <div class="form-group">
-                <label asp-for="Nombre">Nombre</label>
-                <input asp-for="Nombre" class="form-control" />
-            </div>
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
 
-            <div class="form-group">
-                <label asp-for="Grado">Grado</label>
-                <input asp-for="Grado" class="form-control" />
-            </div>
+                <div class="form-group">
+                    <label asp-for="Nombre">Nombre</label>
+                    <input asp-for="Nombre" class="form-control" />
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Seccion">Sección</label>
-                <input asp-for="Seccion" class="form-control" />
-            </div>
+                <div class="form-group">
+                    <label asp-for="Grado">Grado</label>
+                    <select asp-for="Grado" class="form-control">
+                        <option value="Primero" >Primero</option>
+                        <option value="Segundo" >Segundo</option>
+                        <option value="Tercero">Tercero</option>
+                        <option value="Cuarto">Cuarto</option>
+                        <option value="Quinto">Quinto</option>
+                        <option value="Sexto">Sexto</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Horario">Horario</label>
-                <input asp-for="Horario" class="form-control" />
-            </div>
+                <div class="form-group">
+                    
+                    <label asp-for="Seccion">Sección</label>
+                    <select asp-for="Seccion" class="form-control">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        
+                    </select>
+                </div>
 
-            <button type="submit" class="btn-submit">Guardar Cambios</button>
-        </form>
+                <div class="form-group">
+                    <label asp-for="Horario">Horario</label>
+                    <select asp-for="Horario" class="form-control">
+                        <option value="7:00 - 9:00">7:00 - 9:00</option>
+                        <option value="9:00 - 11:00" >9:00 - 11:00</option>
+                        <option value="11:00 - 13:00">11:00 - 13:00</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">Guardar Cambios</button>
+            </form>
+        </div>
     </div>
+    
+    <footer>
+        &copy; 2025 - MiAula. Todos los derechos reservados.
+    </footer>
 </body>
 </html>

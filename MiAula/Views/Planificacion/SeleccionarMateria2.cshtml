@@ -1,5 +1,5 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    Para más información sobre cómo habilitar MVC en proyectos vacíos, visita https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
@@ -10,6 +10,7 @@
     <meta charset="utf-8" />
     <title>Lista de Clases</title>
     <style>
+        /* Estilos generales */
         body {
             display: flex;
             flex-direction: column;
@@ -41,27 +42,7 @@
             margin-bottom: 20px;
         }
 
-        .top-actions {
-            width: 100%;
-            max-width: 900px;
-            text-align: right;
-            margin-bottom: 20px;
-        }
-
-        .btn-crear {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-            .btn-crear:hover {
-                background-color: #218838;
-            }
-
+        /* Estilos de la tabla */
         table {
             width: 100%;
             max-width: 900px;
@@ -73,16 +54,15 @@
             overflow: hidden;
         }
 
+        thead {
+            background-color: #007bff;
+            color: white;
+        }
+
         th, td {
             padding: 15px;
             text-align: center;
             border-bottom: 1px solid #ddd;
-            color: #e0e0e0;
-        }
-
-        thead {
-            background-color: #007bff;
-            color: white;
         }
 
         tbody tr:nth-child(even) {
@@ -93,8 +73,12 @@
             background-color: #e9ecef;
         }
 
-        tbody td {
-            color: #555;
+        /* Estilos de botones y acciones */
+        .top-actions {
+            width: 100%;
+            max-width: 900px;
+            text-align: right;
+            margin-bottom: 20px;
         }
 
         .actions {
@@ -113,23 +97,29 @@
             text-decoration: none;
         }
 
+        .btn-crear {
+            background-color: #28a745;
+            color: white;
+        }
+
         .btn-edit {
             background-color: #ffc107;
             color: #212529;
         }
-
-            .btn-edit:hover {
-                background-color: #e0a800;
-            }
 
         .btn-delete {
             background-color: #dc3545;
             color: #fff;
         }
 
-            .btn-delete:hover {
-                background-color: #c82333;
-            }
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Estilos específicos para el formulario de planificación */
+        .planificar-form {
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -138,9 +128,8 @@
     </header>
 
     <div class="main-content">
-       
         <h2>Lista de Clases</h2>
-
+        
         <table>
             <thead>
                 <tr>
@@ -162,8 +151,15 @@
                         <td>@clase.Seccion</td>
                         <td>@clase.Horario</td>
                         <td>
-                            <a class="btn btn-edit" href="/Clases/Edit/@clase.Id">Editar</a>
-                            <a class="btn btn-delete" href="/Clases/Delete/@clase.Id">Eliminar</a>
+                            <div class="actions">
+                                
+                                <form action="VerTarea" method="get" class="planificar-form">
+                                    <input type="hidden" name="id" value="@clase.Id" />
+                                    <input type="hidden" name="grado" value="@clase.Grado" />
+                                    <input type="hidden" name="seccion" value="@clase.Seccion" />
+                                    <button type="submit" class="btn btn-primary">Ver Planificacion</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -176,5 +172,3 @@
     </footer>
 </body>
 </html>
-
-
