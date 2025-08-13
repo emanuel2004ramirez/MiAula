@@ -37,44 +37,18 @@
             border-top: 5px solid #007bff;
         }
 
-        h2 {
+        .section-title {
             color: #555;
-            margin-top: 0;
+            margin-top: 30px;
             margin-bottom: 20px;
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
+            font-size: 1.8em;
+            font-weight: 600;
         }
 
-        .card {
-            background-color: #f0f8ff;
-            border: 1px solid #cce5ff;
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            font-size: 0.9em;
-        }
-
-        .card-item {
-            text-align: center;
-        }
-
-            .card-item span {
-                display: block;
-                font-size: 1.2em;
-                font-weight: bold;
-                color: #007bff;
-                margin-bottom: 3px;
-            }
-
-            .card-item small {
-                color: #555;
-                text-transform: uppercase;
-                font-weight: 600;
-                font-size: 0.8em;
+            .section-title:first-of-type {
+                margin-top: 0;
             }
 
         table {
@@ -108,7 +82,7 @@
             background-color: #f0f0f0;
         }
 
-        td a.btn-link {
+        .btn-link {
             display: inline-block;
             padding: 10px 15px;
             background-color: #28a745;
@@ -118,10 +92,20 @@
             font-weight: bold;
             transition: background-color 0.3s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
         }
 
-            td a.btn-link:hover {
+            .btn-link:hover {
                 background-color: #218838;
+            }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+            .btn-delete:hover {
+                background-color: #c82333;
             }
 
         footer {
@@ -140,50 +124,78 @@
     </header>
 
     <div class="container">
-        <h2>Planificación de Clase - @Model.Clase.Nombre GRADO:@Model.Clase.Seccion  SECCION: @Model.Clase.Grado</h2>
+        <!-- Sección para el Examen -->
+        <h2 class="section-title">Examen</h2>
+        <table>
+            <thead>
+                <tr>
 
-        @if (Model.planificacion != null && Model.planificacion.Count > 0)
-        {
-            <div class="card">
-                <div class="card-item">
-                    <span>@Model.planificacion[0].Porcentaje_Tareas%</span>
-                    <small>Tareas</small>
-                </div>
-                <div class="card-item">
-                    <span>@Model.planificacion[0].Porcentaje_Examenes%</span>
-                    <small>Examen</small>
-                </div>
-            </div>
-        }
+                    <th>Examne</th>
+                    <th>Fecha</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.examen != null)
+                {
+                    <tr>
+                        <td>@Model.examen.Nombre</td>
+                        <td>@Model.examen.Fecha</td>
+                        <td>@Model.examen.Valor</td>
+                        <td>
+                           
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No hay examen asignado.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
+        <!-- Sección para las Tareas -->
+        <h2 class="section-title">Tareas</h2>
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Tema</th>
-                    <th>Objetivo</th>
-                    <th>Acciones</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
-                @if (Model.planificacion != null)
+                @if (Model.tareas != null && Model.tareas.Count > 0)
                 {
-                    @foreach (var p in Model.planificacion)
+                    @foreach (var p in Model.tareas)
                     {
                         <tr>
-                            <td>@p.PlanificacionId</td>
+                            <td>@p.Id_Tarea</td>
                             <td>@p.Tema</td>
-                            <td>@p.Objetivo</td>
+                            <td>@p.Tipo</td>
+                            <td>@p.Valor</td>
                             <td>
-                                <form action="/Tarea/index" method="get">
-                                    <input type="hidden" name="tema" value="@p.Tema" />
-                                    <input type="hidden" name="id_clase" value="@Model.planificacion[1].ClaseId" />
-                                    <button type="submit" class="btn-link">Ver Tareas</button>
-                                <a href="" class="btn-link" target="_blank">Editar Tema</a>
+                                <form action="Calificar_Tareas" method="get" style="display:inline-block;">
+                                    <input type="hidden" name="id" value="@p.Id_Tarea" />
+                                    <button type="submit" class="btn-link">Calificar</button>
+                                </form>
+                                <form action="Eliminar_Tarea" method="post" style="display:inline-block;">
+                                    <input type="hidden" name="id" value="@p.Id_Tarea" />
+                                    <button type="submit" class="btn-link btn-delete">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
                     }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No hay tareas asignadas.</td>
+                    </tr>
                 }
             </tbody>
         </table>

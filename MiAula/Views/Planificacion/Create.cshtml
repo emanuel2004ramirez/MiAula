@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Planificación de Clases</title>
     <style>
-        
-
         :root {
             --primary-color: #4a90e2;
             --secondary-color: #50bda1;
@@ -259,6 +257,12 @@
                 color: #856404;
                 margin-bottom: 10px;
             }
+
+        .total-puntos-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
     </style>
 </head>
 <body>
@@ -286,26 +290,20 @@
                         <input type="date" id="fechaFin" name="fechaFin" required>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="porcentajeTareas">Porcentaje Tareas (%):</label>
-                        <input type="number" id="porcentajeTareas" name="porcentajeTareas" min="0" max="100" value="20" onchange="validarPorcentajes()">
-                    </div>
-                    <div class="form-group">
-                        <label for="porcentajeExamenes">Porcentaje Exámenes (%):</label>
-                        <input type="number" id="porcentajeExamenes" name="porcentajeExamenes" min="0" max="100" value="50" onchange="validarPorcentajes()">
-                    </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Exámenes Obligatorios</h2>
+                <div id="examenesContainer">
                 </div>
-                <div class="indicador-porcentaje" id="indicadorPorcentaje">
-                    ⚠️ Faltan 30% para completar el 100%
-                </div>
+                <button type="button" class="btn btn-secondary" onclick="agregarExamen()" id="agregarExamenBtn">+ Agregar Examen</button>
             </div>
 
             <div class="form-section">
                 <h2>Temas y Tareas</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="nuevoTemaNombre">Nombre del Tema:</label>
+                        <label for="nuevoTem">Nombre del Tema:</label>
                         <input type="text" id="nuevoTemaNombre" placeholder="Ej: Introducción a las Matemáticas">
                     </div>
                     <div class="form-group">
@@ -319,10 +317,11 @@
             </div>
             <div class="summary">
                 <h3>📊 Resumen de la Planificación</h3>
-                <p id="resumenInfo">Total de temas: 0 | Total de tareas: 0</p>
+                <p id="resumenInfo">Puntos de Tareas: 0% | Puntos de Exámenes: 0% | Puntos totales: 0</p>
+                <div class="indicador-puntos" id="indicadorPuntos">⚠️ Faltan 100 puntos para completar 100</div>
             </div>
             <div class="actions">
-                <button type="submit" class="btn btn-primary">💾 Guardar Planificación</button>
+                <button type="submit" class="btn btn-primary" id="guardarBtn" disabled>💾 Guardar Planificación</button>
             </div>
         </form>
     </div>
@@ -330,18 +329,18 @@
         <p>© 2025 - MiAula. Todos los derechos reservados.</p>
     </footer>
     <script>
-        // Los scripts JavaScript permanecen sin cambios
         let temasData = [];
+        let examenesData = [];
         let nextTemaId = 0;
         let nextTareaId = 0;
+        let nextExamenId = 0;
 
         function agregarTema() {
             const nombre = document.getElementById('nuevoTemaNombre').value;
             const objetivos = document.getElementById('nuevoTemaObjetivos').value;
 
             if (!nombre.trim()) {
-                // Reemplazado alert por una forma más amigable
-                console.error('Por favor, ingresa el nombre del tema');
+                alert('Por favor, ingresa el nombre del tema');
                 return;
             }
 
@@ -352,11 +351,10 @@
                 tareas: []
             };
             temasData.push(tema);
-            renderTemas();
+            renderForm();
 
             document.getElementById('nuevoTemaNombre').value = '';
             document.getElementById('nuevoTemaObjetivos').value = '';
-            validarPorcentajes();
         }
 
         function agregarTarea(temaId) {
@@ -366,9 +364,10 @@
             const descripcion = document.getElementById(`desc_${temaId}`).value;
             const tipo = document.getElementById(`tipo_${temaId}`).value;
             const fechaLimite = document.getElementById(`fecha_${temaId}`).value;
+            const valorPuntos = parseFloat(document.getElementById(`valor_${temaId}`).value) || 0;
 
             if (!descripcion.trim()) {
-                console.error('Por favor, ingresa la descripción de la tarea');
+                alert('Por favor, ingresa la descripción de la tarea');
                 return;
             }
 
@@ -376,22 +375,42 @@
                 id: nextTareaId++,
                 descripcion: descripcion,
                 tipo: tipo,
-                fechaLimite: fechaLimite || 'Sin fecha'
+                fechaLimite: fechaLimite || 'Sin fecha',
+                valorPuntos: valorPuntos
             };
             tema.tareas.push(tarea);
-            renderTemas();
+            renderForm();
 
             document.getElementById(`desc_${temaId}`).value = '';
             document.getElementById(`tipo_${temaId}`).value = 'Tarea';
             document.getElementById(`fecha_${temaId}`).value = '';
-            validarPorcentajes();
+            document.getElementById(`valor_${temaId}`).value = '';
+        }
+
+        function agregarExamen() {
+            if (examenesData.length > 0) return;
+
+            const examen = {
+                id: nextExamenId++,
+                nombre: '',
+                fecha: '',
+                valorPuntos: 0
+            };
+            examenesData.push(examen);
+            renderForm();
         }
 
         function eliminarTema(temaId) {
             if (confirm('¿Estás seguro de eliminar este tema y todas sus tareas?')) {
                 temasData = temasData.filter(t => t.id !== temaId);
-                renderTemas();
-                validarPorcentajes();
+                renderForm();
+            }
+        }
+
+        function eliminarExamen(examenId) {
+            if (confirm('¿Estás seguro de eliminar este examen?')) {
+                examenesData = examenesData.filter(e => e.id !== examenId);
+                renderForm();
             }
         }
 
@@ -399,26 +418,78 @@
             const tema = temasData.find(t => t.id === temaId);
             if (tema) {
                 tema.tareas = tema.tareas.filter(t => t.id !== tareaId);
-                renderTemas();
-                validarPorcentajes();
+                renderForm();
             }
         }
 
-        function renderTemas() {
-            const container = document.getElementById('temasContainer');
+        function actualizarExamen(examenId, campo, valor) {
+            const examen = examenesData.find(e => e.id === examenId);
+            if (examen) {
+                examen[campo] = valor;
+            }
+            renderForm();
+        }
+
+        function renderForm() {
+            const temasContainer = document.getElementById('temasContainer');
             const hiddenInputsContainer = document.getElementById('hiddenInputsContainer');
-            container.innerHTML = '';
+            const examenesContainer = document.getElementById('examenesContainer');
+            const agregarExamenBtn = document.getElementById('agregarExamenBtn');
+
+            temasContainer.innerHTML = '';
             hiddenInputsContainer.innerHTML = '';
+            examenesContainer.innerHTML = '';
+
+            let totalPuntosTareas = 0;
+            let totalPuntosExamenes = 0;
             let totalTareas = 0;
 
+            // Renderizar exámenes
+            examenesData.forEach((examen, index) => {
+                totalPuntosExamenes += examen.valorPuntos;
+                const examenDiv = document.createElement('div');
+                examenDiv.className = 'form-row';
+                examenDiv.innerHTML = `
+                    <div class="form-group">
+                        <label for="examenNombre_${examen.id}">Nombre del Examen:</label>
+                        <input type="text" name="examenes[${index}].Nombre" id="examenNombre_${examen.id}" placeholder="Ej: Examen Final" value="${examen.nombre}" oninput="actualizarExamen(${examen.id}, 'nombre', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label for="examenFecha_${examen.id}">Fecha del Examen:</label>
+                        <input type="date" name="examenes[${index}].Fecha" id="examenFecha_${examen.id}" value="${examen.fecha}" onchange="actualizarExamen(${examen.id}, 'fecha', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label for="examenPuntos_${examen.id}">Valor (Puntos):</label>
+                        <input type="number" name="examenes[${index}].Valor" id="examenPuntos_${examen.id}" min="0" placeholder="Ej: 50" value="${examen.valorPuntos}" oninput="actualizarExamen(${examen.id}, 'valorPuntos', parseFloat(this.value) || 0)">
+                    </div>
+                    <button type="button" class="btn btn-danger" onclick="eliminarExamen(${examen.id})">🗑️</button>
+                `;
+                examenesContainer.appendChild(examenDiv);
+            });
+
+            // Habilitar/deshabilitar botón de agregar examen
+            if (examenesData.length > 0) {
+                agregarExamenBtn.disabled = true;
+                agregarExamenBtn.textContent = 'Un Examen ya ha sido agregado';
+            } else {
+                agregarExamenBtn.disabled = false;
+                agregarExamenBtn.textContent = '+ Agregar Examen';
+            }
+
+            // Renderizar temas y tareas
             temasData.forEach((tema, temaIndex) => {
+                let puntosTema = tema.tareas.reduce((sum, tarea) => sum + tarea.valorPuntos, 0);
+                totalPuntosTareas += puntosTema;
+
                 const temaDiv = document.createElement('div');
                 temaDiv.className = 'tema-item';
-
                 temaDiv.innerHTML = `
                     <div class="tema-header">
                         <div class="tema-title">📖 ${tema.nombre}</div>
-                        <button type="button" class="btn btn-danger" onclick="eliminarTema(${tema.id})">🗑️ Eliminar</button>
+                        <div>
+                            <strong>Puntos del Tema:</strong> ${puntosTema}
+                            <button type="button" class="btn btn-danger" onclick="eliminarTema(${tema.id})">🗑️ Eliminar</button>
+                        </div>
                     </div>
                     <div><strong>Objetivos:</strong> ${tema.objetivos || 'No especificados'}</div>
                     <div class="nueva-tarea">
@@ -431,7 +502,6 @@
                                 <label>Tipo:</label>
                                 <select id="tipo_${tema.id}">
                                     <option value="Tarea">Tarea</option>
-                                    <option value="Examen">Examen</option>
                                     <option value="Proyecto">Proyecto</option>
                                     <option value="Investigación">Investigación</option>
                                 </select>
@@ -442,6 +512,10 @@
                                 <label>Fecha Límite:</label>
                                 <input type="date" id="fecha_${tema.id}">
                             </div>
+                            <div class="form-group">
+                                <label>Valor (Puntos):</label>
+                                <input type="number" id="valor_${tema.id}" min="0" placeholder="Ej: 10">
+                            </div>
                         </div>
                         <button type="button" class="btn btn-secondary" onclick="agregarTarea(${tema.id})">+ Agregar Tarea al Tema</button>
                     </div>
@@ -449,77 +523,73 @@
                         ${renderTareasHtml(tema.tareas, tema.id)}
                     </div>
                 `;
-                container.appendChild(temaDiv);
+                temasContainer.appendChild(temaDiv);
                 totalTareas += tema.tareas.length;
 
                 renderHiddenInputs(tema, temaIndex, hiddenInputsContainer);
             });
 
-            document.getElementById('resumenInfo').textContent = `Total de temas: ${temasData.length} | Total de tareas: ${totalTareas}`;
+            actualizarResumen(totalPuntosTareas, totalPuntosExamenes);
         }
 
         function renderTareasHtml(tareas, temaId) {
             let tareasHtml = '';
-            tareas.forEach((tarea) => {
+            tareas.forEach((tarea, tareaIndex) => {
                 tareasHtml += `
                     <div class="tarea-item">
                         <div class="tarea-info">
                             <div class="tarea-descripcion">📝 ${tarea.descripcion}</div>
                             <div class="tarea-detalles">
                                 <span>Tipo: ${tarea.tipo}</span> •
-                                <span>Fecha límite: ${tarea.fechaLimite}</span>
+                                <span>Fecha límite: ${tarea.fechaLimite}</span> •
+                                <span>Valor: ${tarea.valorPuntos} puntos</span>
                             </div>
                         </div>
                         <button type="button" class="btn btn-danger" onclick="eliminarTarea(${temaId}, ${tarea.id})">🗑️</button>
                     </div>
+                    <input type="hidden" name="temas[${temaId}].tareas[${tareaIndex}].Descripcion" value="${tarea.descripcion}" />
+                    <input type="hidden" name="temas[${temaId}].tareas[${tareaIndex}].Tipo" value="${tarea.tipo}" />
+                    <input type="hidden" name="temas[${temaId}].tareas[${tareaIndex}].Fecha_Entrega" value="${tarea.fechaLimite}" />
+                    <input type="hidden" name="temas[${temaId}].tareas[${tareaIndex}].Valor" value="${tarea.valorPuntos}" />
                 `;
             });
             return tareasHtml;
         }
 
         function renderHiddenInputs(tema, temaIndex, hiddenContainer) {
-            const temaHiddenDiv = document.createElement('div');
-            temaHiddenDiv.innerHTML = `
+            hiddenContainer.innerHTML += `
                 <input type="hidden" name="temas[${temaIndex}].Nombre" value="${tema.nombre}" />
                 <input type="hidden" name="temas[${temaIndex}].Objetivos" value="${tema.objetivos}" />
             `;
-            hiddenContainer.appendChild(temaHiddenDiv);
-
-            tema.tareas.forEach((tarea, tareaIndex) => {
-                const tareaHiddenDiv = document.createElement('div');
-                tareaHiddenDiv.innerHTML = `
-                    <input type="hidden" name="temas[${temaIndex}].tareas[${tareaIndex}].Descripcion" value="${tarea.descripcion}" />
-                    <input type="hidden" name="temas[${temaIndex}].tareas[${tareaIndex}].Tipo" value="${tarea.tipo}" />
-                    <input type="hidden" name="temas[${temaIndex}].tareas[${tareaIndex}].Fecha_Entrega" value="${tarea.fechaLimite}" />
-                `;
-                hiddenContainer.appendChild(tareaHiddenDiv);
-            });
         }
 
-        function validarPorcentajes() {
-            const tareas = parseInt(document.getElementById('porcentajeTareas').value) || 0;
-            const examenes = parseInt(document.getElementById('porcentajeExamenes').value) || 0;
-            const indicador = document.getElementById('indicadorPorcentaje');
-            const total = tareas + examenes;
+        function actualizarResumen(totalPuntosTareas, totalPuntosExamenes) {
+            const total = totalPuntosTareas + totalPuntosExamenes;
+            const porcentajeTareas = total > 0 ? ((totalPuntosTareas / total) * 100).toFixed(2) : 0;
+            const porcentajeExamenes = total > 0 ? ((totalPuntosExamenes / total) * 100).toFixed(2) : 0;
+            const indicadorPuntos = document.getElementById('indicadorPuntos');
+            const guardarBtn = document.getElementById('guardarBtn');
+            const resumenInfo = document.getElementById('resumenInfo');
+
+            resumenInfo.textContent = `Puntos de Tareas: ${porcentajeTareas}% | Puntos de Exámenes: ${porcentajeExamenes}% | Puntos totales: ${total}`;
 
             if (total === 100) {
-                indicador.textContent = '✅ Porcentaje completo: 100%';
-                indicador.style.backgroundColor = '#d4edda';
-                indicador.style.color = '#155724';
-                indicador.style.borderColor = '#c3e6cb';
+                indicadorPuntos.textContent = '✅ El total de puntos es 100';
+                indicadorPuntos.className = 'indicador-porcentaje';
+                guardarBtn.disabled = false;
+            } else if (total > 100) {
+                indicadorPuntos.textContent = `❌ ¡El total de puntos excede 100! (Suma actual: ${total})`;
+                indicadorPuntos.className = 'indicador-porcentaje total-puntos-error';
+                guardarBtn.disabled = true;
             } else {
-                const faltante = 100 - total;
-                const mensaje = faltante > 0 ? `⚠️ Faltan ${faltante}% para completar el 100%` : `❌ Excedido en ${-faltante}%`;
-                indicador.textContent = mensaje;
-                indicador.style.backgroundColor = '#fff3cd';
-                indicador.style.color = '#856404';
-                indicador.style.borderColor = '#ffeeba';
+                indicadorPuntos.textContent = `⚠️ Faltan ${100 - total} puntos para completar 100`;
+                indicadorPuntos.className = 'indicador-porcentaje';
+                guardarBtn.disabled = true;
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            validarPorcentajes();
-            renderTemas();
+            renderForm();
         });
     </script>
 </body>

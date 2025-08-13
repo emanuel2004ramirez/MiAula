@@ -1,35 +1,29 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Text.Json.Serialization;
 
-namespace MiAula.Models
+namespace MiAula.ModelS
 {
     public class Planificacion
     {
-        public int Id { get; set; }
-
-        public int Id_Clase { get; set; }
-
+        public int PlanificacionId { get; set; }
+        public int ClaseId { get; set; }
         public string Tema { get; set; }
-
         public string Objetivo { get; set; }
-
         public string Fecha_Inicio { get; set; }
-
         public string Fecha_Fin { get; set; }
+        public string Porcentaje_Tareas { get; set; }
+        public string Porcentaje_Examenes { get; set; }
 
-        public int Porcentaje_Tareas { get; set; }
-
-        public int Porcentaje_Examenes { get; set; }
-
-        public Planificacion(int id,int id_clase,string tema,string objetivo,string fecha_inicio,string fecha_fin,int porcentaje_tareas,int porcentaje_examne) { 
-
-            Id = id;
-            Id_Clase = id_clase;
-            Tema = tema;
-            Objetivo = objetivo;
-            Fecha_Inicio = fecha_inicio;
-            Fecha_Fin = fecha_fin;
-            Porcentaje_Tareas = porcentaje_tareas;
-            Porcentaje_Examenes = porcentaje_examne;
+        [JsonConstructor]
+        public Planificacion(int PlanificacionId, int ClaseId, string Tema, string Objetivo, string Fecha_Inicio, string Fecha_Fin, string Porcentaje_Tareas, string Porcentaje_Examenes)
+        {
+            this.PlanificacionId = PlanificacionId;
+            this.ClaseId = ClaseId;
+            this.Tema = Tema;
+            this.Objetivo = Objetivo;
+            this.Fecha_Inicio = Fecha_Inicio;
+            this.Fecha_Fin = Fecha_Fin;
+            this.Porcentaje_Tareas = Porcentaje_Tareas;
+            this.Porcentaje_Examenes = Porcentaje_Examenes;
         }
 
     }

@@ -1,0 +1,120 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #121212, #1e1e1e);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            color: #e0e0e0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00eaff;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 196, 255, 0.3);
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #2e2e2e;
+        }
+
+        thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #2a2a2a;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #1f1f1f;
+        }
+
+        tbody td {
+            color: #e0e0e0;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-edit {
+            background-color: #00c4ff;
+            color: #000;
+        }
+
+            .btn-edit:hover {
+                background-color: #00b0e0;
+            }
+
+        .btn-delete {
+            background-color: #ff4d4d;
+            color: #fff;
+        }
+
+            .btn-delete:hover {
+                background-color: #e03c3c;
+            }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Lista de Alumnos</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fecha de Nacimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var alumno in Model)
+            {
+                <tr>
+                    <td>@alumno.Id</td>
+                    <td>@alumno.Nombre</td>
+                    <td>@alumno.Apellido</td>
+                    <td>@alumno.Fecha_Nacimiento</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+

@@ -22,17 +22,16 @@
         <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
             <h2 class="text-3xl font-bold mb-6 text-gray-800 text-center">Crear Nueva Clase</h2>
 
-            <!-- El 'action' del formulario apunta al controlador 'Home' y la acción 'Create' -->
-            <!-- El 'method="post"' es una buena práctica para enviar datos del formulario -->
-            <form action="/Clase/Create" method="post" class="space-y-6">
-                <!-- Campo para el Nombre -->
+
+            <form action="/Clases/Create" method="post" class="space-y-6">
+
                 <div>
                     <label for="Nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
                     <input type="text" id="Nombre" name="Nombre" required
                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
 
-                <!-- Campo para el Grado, ahora como un menú desplegable -->
+
                 <div>
                     <label for="Grado" class="block text-sm font-medium text-gray-700">Grado</label>
                     <select id="Grado" name="Grado" required
@@ -47,7 +46,7 @@
                     </select>
                 </div>
 
-                <!-- Campo para la Seccion, ahora como un menú desplegable -->
+           
                 <div>
                     <label for="Seccion" class="block text-sm font-medium text-gray-700">Seccion</label>
                     <select id="Seccion" name="Seccion" required
@@ -58,14 +57,13 @@
                     </select>
                 </div>
 
-                <!-- Campo para el Horario -->
                 <div>
                     <label for="Horario" class="block text-sm font-medium text-gray-700">Horario</label>
                     <input type="text" id="Horario" name="Horario" required
                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
 
-                <!-- Botón de envío -->
+   
                 <button type="submit"
                         class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
                     Crear Clase

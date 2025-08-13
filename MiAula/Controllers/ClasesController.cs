@@ -60,5 +60,10 @@ namespace MiAula.Controllers
             ClaseAPI.Delete_Clase(id);
             return RedirectToAction(nameof(Index));
         }
+
+        public ActionResult Alumnos_EN_CLASE(int id)
+        {
+            return View(ClaseAPI.Alumnos_EN_CLASE(id));
+        }
     }
 }

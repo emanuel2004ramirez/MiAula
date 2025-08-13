@@ -1,0 +1,148 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Sección</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007BFF;
+            --background-color: #f8f9fa;
+            --card-bg-color: #ffffff;
+            --text-color: #343a40;
+            --header-footer-bg: #343a40;
+            --header-footer-text: #ffffff;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--header-footer-bg);
+            color: var(--header-footer-text);
+            padding: 1.5em 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            header h1 {
+                margin: 0;
+                font-weight: 600;
+            }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2em;
+        }
+
+        .container {
+            display: flex;
+            gap: 2em;
+        }
+
+        .option-box {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 2em;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 250px;
+            cursor: pointer;
+        }
+
+            .option-box:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            }
+
+            .option-box h2 {
+                color: var(--primary-color);
+                margin-top: 0;
+                font-weight: 600;
+            }
+
+            .option-box p {
+                color: #6c757d;
+            }
+
+            .option-box button {
+                display: inline-block;
+                margin-top: 1em;
+                padding: 10px 20px;
+                background-color: var(--primary-color);
+                color: white;
+                text-decoration: none;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .option-box button:hover {
+                    background-color: #0056b3;
+                }
+
+        footer {
+            background-color: var(--header-footer-bg);
+            color: var(--header-footer-text);
+            text-align: center;
+            padding: 1.5em 0;
+            margin-top: auto;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MiAula</h1>
+    </header>
+
+    <main>
+        <h4>Grado: @Model </h4>
+        <div class="container">
+            <form action="SeleccionarMateria" method="get">
+                <div class="option-box" onclick="this.closest('form').submit();">
+                    <h2>Sección A</h2>
+                    <p>Elige esta opción para acceder a los contenidos de la Sección A.</p>
+                    <input name="seccion" value="A" hidden />
+                    <input name="grado" value="@Model" hidden />
+                    <button type="submit">Ingresar a Sección A</button>
+                </div>
+            </form>
+
+            <form action="SeleccionarMateria" method="get">
+                <div class="option-box" onclick="this.closest('form').submit();">
+                    <h2>Sección B</h2>
+                    <p>Elige esta opción para acceder a los contenidos de la Sección B.</p>
+                    <input name="seccion" value="B" hidden />
+                    <input name="grado" value="@Model" hidden />
+                    <button type="submit">Ir a Sección B</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 - MiAula. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

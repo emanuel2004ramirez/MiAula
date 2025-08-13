@@ -1,9 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@model List<MiAula.Models.Tarea>
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planificación de Clase</title>
+    <title>Lista de Tareas</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -44,38 +46,6 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
-
-        .card {
-            background-color: #f0f8ff;
-            border: 1px solid #cce5ff;
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            font-size: 0.9em;
-        }
-
-        .card-item {
-            text-align: center;
-        }
-
-            .card-item span {
-                display: block;
-                font-size: 1.2em;
-                font-weight: bold;
-                color: #007bff;
-                margin-bottom: 3px;
-            }
-
-            .card-item small {
-                color: #555;
-                text-transform: uppercase;
-                font-weight: 600;
-                font-size: 0.8em;
-            }
 
         table {
             width: 100%;
@@ -118,6 +88,7 @@
             font-weight: bold;
             transition: background-color 0.3s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-right: 5px;
         }
 
             td a.btn-link:hover {
@@ -140,53 +111,53 @@
     </header>
 
     <div class="container">
-        <h2>Planificación de Clase - @Model.Clase.Nombre GRADO:@Model.Clase.Seccion  SECCION: @Model.Clase.Grado</h2>
+        <h2>Lista de Tareas</h2>
 
-        @if (Model.planificacion != null && Model.planificacion.Count > 0)
+        @if (Model != null && Model.Count > 0)
         {
-            <div class="card">
-                <div class="card-item">
-                    <span>@Model.planificacion[0].Porcentaje_Tareas%</span>
-                    <small>Tareas</small>
-                </div>
-                <div class="card-item">
-                    <span>@Model.planificacion[0].Porcentaje_Examenes%</span>
-                    <small>Examen</small>
-                </div>
-            </div>
-        }
-
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tema</th>
-                    <th>Objetivo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.planificacion != null)
-                {
-                    @foreach (var p in Model.planificacion)
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descripcion</th>
+                        <th>Tipo</th>
+                        <th>Archivo</th>
+                        <th>Fecha Límite</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tarea in Model)
                     {
                         <tr>
-                            <td>@p.PlanificacionId</td>
-                            <td>@p.Tema</td>
-                            <td>@p.Objetivo</td>
+                            <td>@tarea.Id_Tarea</td>
+                            <td>@tarea.Tareaa</td>
+                            <td>@tarea.Tipo</td>
+                            
                             <td>
-                                <form action="/Tarea/index" method="get">
-                                    <input type="hidden" name="tema" value="@p.Tema" />
-                                    <input type="hidden" name="id_clase" value="@Model.planificacion[1].ClaseId" />
-                                    <button type="submit" class="btn-link">Ver Tareas</button>
-                                <a href="" class="btn-link" target="_blank">Editar Tema</a>
-                                </form>
+                                @if (!string.IsNullOrEmpty(tarea.Archivo))
+                                {
+                                    <a href="@tarea.Archivo" target="_blank" class="btn-link">Ver Archivo</a>
+                                }
+                                else
+                                {
+                                    <span>Sin archivo</span>
+                                }
+                            </td>
+                            <td>@tarea.Fecha_Limite</td>
+                            <td>
+                                <a href="/Tarea/Editar/@tarea.Id_Tarea" class="btn-link">Editar</a>
+                                <a href="/Tarea/Eliminar/@tarea.Id_Tarea" class="btn-link" style="background-color:#dc3545;">Eliminar</a>
                             </td>
                         </tr>
                     }
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No hay tareas registradas.</p>
+        }
     </div>
 
     <footer>

@@ -170,7 +170,26 @@ namespace MiAula.Services
             return clases;
         }
 
+        public static List<Alumno> Alumnos_EN_CLASE(int idClase)
+        {
 
+
+            List<Alumno> alumnos = new List<Alumno>();
+            HttpClient client = new HttpClient();
+            string url = ConexionAPI.URLBase + "/Clase/Alumnos_EN_CLASE?id_clase="+idClase;
+                                       
+
+            var getTask = client.GetAsync(url);
+            getTask.Wait();
+            var result = getTask.Result;
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                alumnos = result.Content.ReadFromJsonAsync<List<Alumno>>().Result;
+                return alumnos;
+            }
+            return alumnos;
+
+        }
     }
     }
 

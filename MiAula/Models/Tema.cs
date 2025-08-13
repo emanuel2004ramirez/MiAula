@@ -34,10 +34,12 @@ namespace MiAula.Models
         [JsonPropertyName("porcentaje_Examenes")]
         public int Porcentaje_Examenes { get; set; }
 
-        // Constructor sin parámetros para el deserializador
+        public int valor { get; set; }
+
+        
         public Tema() { }
 
-        public Tema(string nombre, string objetivo, int id_clase, string descripcionT, string tipo, string fecha_Entrega, string fecha_Inicio, string fecha_Fin, int porcentaje_Tareas, int porcentaje_Examenes)
+        public Tema(string nombre, string objetivo, int id_clase, string descripcionT, string tipo, string fecha_Entrega, string fecha_Inicio, string fecha_Fin, int porcentaje_Tareas, int porcentaje_Examenes, int valor)
         {
             this.Nombre = nombre;
             this.Objetivo = objetivo;
@@ -49,6 +51,7 @@ namespace MiAula.Models
             this.Fecha_Fin = fecha_Fin;
             this.Porcentaje_Tareas = porcentaje_Tareas;
             this.Porcentaje_Examenes = porcentaje_Examenes;
+            this.valor = valor;
         }
 
         public override string ToString()

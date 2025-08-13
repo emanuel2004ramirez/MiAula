@@ -1,0 +1,127 @@
+﻿@model MiAula.Models.Clase
+
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <title>Eliminar Clase - MiAula</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(135deg, #121212, #1e1e1e);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        header, footer {
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .delete-card {
+            background-color: #1c1c1c;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(255, 64, 64, 0.3);
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff5252;
+            margin-bottom: 1rem;
+        }
+
+        .info {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #ccc;
+        }
+
+            .info p {
+                margin: 5px 0;
+            }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 48%;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-cancelar {
+            background: #555;
+            color: #fff;
+        }
+
+            .btn-cancelar:hover {
+                background: #777;
+            }
+
+        .btn-eliminar {
+            background: linear-gradient(90deg, #ff4e4e, #ff1e56);
+            color: #fff;
+        }
+
+            .btn-eliminar:hover {
+                box-shadow: 0 0 10px #ff4e4e;
+                transform: scale(1.02);
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MiAula</h1>
+    </header>
+
+    <div class="main-content">
+        <div class="delete-card">
+            <h2>¿Estás seguro de eliminar la planificacion?</h2>
+
+            <div class="info">
+                <p><strong>Nombre:</strong> @Model.Nombre</p>
+                <p><strong>Grado:</strong> @Model.Grado</p>
+                <p><strong>Sección:</strong> @Model.Seccion</p>
+                <p><strong>Horario:</strong> @Model.Horario</p>
+            </div>
+
+            <form action="/Planificacion/DeleteP/@Model.Id" method="post">
+                <div class="buttons">
+                    <a asp-action="Index" class="btn btn-cancelar">Cancelar</a>
+                    <button type="submit" class="btn btn-eliminar">Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 - MiAula. Todos los derechos reservados.
+    </footer>
+</body>
+</html>

@@ -26,6 +26,11 @@ namespace MiAula.Controllers
             Listas.Alumnos = ClasesAlumnoAPI.AlumnoNoTieneClases(seccion, Grado);
             Listas.Clases = ClaseAPI.get_Clases_bySeccionGrado(seccion,Grado);
             
+            if (Listas.Alumnos.Count == 0  || Listas.Clases.Count == 0)
+            {
+                return RedirectToAction("FAILED", "MSG");
+
+            }
             return View(Listas);
         }
 
@@ -37,7 +42,7 @@ namespace MiAula.Controllers
             
                 if (idClases == null || idClases.Count == 0)
             {
-                // Redirige a una página de error si no se seleccionó ninguna clase
+                
                 return RedirectToAction("FAILED", "MSG");
             }
 

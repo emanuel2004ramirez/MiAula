@@ -1,12 +1,14 @@
 ﻿
+using API_MI_AULA.Models;
 using MiAula.Models;
+using MiAula.ModelS;
 using System.Net;
 
 namespace MiAula.Services
 {
     public static class PlanificacionAPI
     {
-        public static bool CrearPlanificacion(List<Tema> tema)
+        public static bool CrearPlanificacion(T_E planificacion)
         {
 
             HttpClient client = new HttpClient();
@@ -14,7 +16,7 @@ namespace MiAula.Services
 
             string url = ConexionAPI.URLBase + "/Planificacion";
 
-            var postTask = client.PostAsJsonAsync(url, tema);
+            var postTask = client.PostAsJsonAsync(url, planificacion);
             postTask.Wait();
 
             var result = postTask.Result;
@@ -31,12 +33,37 @@ namespace MiAula.Services
 
         }
 
-        public static List<Tarea> Planificacion (string grado, string seccion)
+        public static bool EliminarPlanificacion(int id)
         {
-            List<Tarea> tareas = new List<Tarea>();
             HttpClient client = new HttpClient();
-            string url = ConexionAPI.URLBase + "/Clase/Planificacion?grado=" + grado + "&seccion=" + seccion;
-                                               
+
+
+            string url = ConexionAPI.URLBase + "/Planificacion/"+id
+            ;
+
+            var delTask = client.DeleteAsync(url);
+            delTask.Wait();
+
+            var result = delTask.Result;
+
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var resultadoTask = result.Content.ReadFromJsonAsync<bool>();
+                resultadoTask.Wait();
+                return resultadoTask.Result;
+            }
+
+            return false;
+
+        }
+
+        public static List<Planificacion> Planificacion (int id)
+        {
+            List<Planificacion> planificacion = new List<Planificacion>();
+            HttpClient client = new HttpClient();
+            string url = ConexionAPI.URLBase + "/Clase/Planificacion?id="+id;
+
+
 
 
             var getTask = client.GetAsync(url);
@@ -44,10 +71,10 @@ namespace MiAula.Services
             var result = getTask.Result;
             if (result.StatusCode == HttpStatusCode.OK)
             {
-                tareas = result.Content.ReadFromJsonAsync<List<Tarea>>().Result;
-                return tareas;
+                planificacion = result.Content.ReadFromJsonAsync<List<Planificacion>>().Result;
+                return planificacion;
             }
-            return tareas;
+            return planificacion;
 
         }
 

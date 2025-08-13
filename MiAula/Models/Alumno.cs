@@ -12,6 +12,8 @@ namespace MiAula.Models
         public string Fecha_Nacimiento { get; set; }
         public string Grado { get; set; }
         public string Seccion { get; set; }
+
+        public int Id_clase { get; set; } = 0;
         
 
         // Constructor
@@ -24,6 +26,7 @@ namespace MiAula.Models
             Fecha_Nacimiento = fecha_nacimiento;
             Grado = grado;
             Seccion = seccion;
+        
 
         }
     }
