@@ -1,0 +1,45 @@
+﻿@{
+    var alumnos = ViewBag.ListaAlumnos as List<MiAula.Models.Alumno>;
+}
+
+<h2>Registrar Padre o Tutor</h2>
+
+<form method="post" action="/Padre/Crear">
+    <div class="mb-3">
+        <label for="alumnoId" class="form-label">Seleccione el alumno:</label>
+        <select id="alumnoId" name="alumnoId" class="form-select" required>
+            <option value="">-- Seleccione --</option>
+            @foreach (var alumno in alumnos)
+            {
+                <option value="@alumno.Id">@alumno.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="relacion" class="form-label">Relación con el alumno:</label>
+        <input type="text" id="relacion" name="relacion" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="correo" class="form-label">Correo electrónico:</label>
+        <input type="email" id="correo" name="correo" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar Padre</button>
+</form>

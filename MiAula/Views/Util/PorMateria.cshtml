@@ -1,0 +1,41 @@
+﻿@model List<MiAula.Models.Util>
+
+@{
+    var materias = ViewBag.ListaMaterias as List<MiAula.Models.Clase>;
+}
+
+<h2>Buscar útiles por materia</h2>
+
+<form method="get" action="/Util/PorMateria">
+    <label for="materiaId" class="form-label">Seleccione una materia:</label>
+    <select id="materiaId" name="materiaId" class="form-select" required>
+        <option value="">-- Seleccione --</option>
+        @foreach (var materia in materias)
+        {
+            <option value="@materia.Id">@materia.Nombre</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+</form>
+
+<hr />
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Clase ID</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var util in Model)
+        {
+            <tr>
+                <td>@util.Nombre</td>
+                <td>@util.ClaseId</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

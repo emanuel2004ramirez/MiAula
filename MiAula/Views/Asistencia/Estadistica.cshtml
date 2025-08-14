@@ -1,0 +1,31 @@
+﻿@{
+    var alumnos = ViewBag.ListaAlumnos as List<Alumno>;
+    var estadisticas = ViewBag.Estadisticas as EstadisticaAlumno;
+}
+
+<h2>Estadísticas por alumno</h2>
+
+<form method="get" action="/Asistencia/Estadistica">
+    <div class="mb-3">
+        <label for="alumnoId" class="form-label">Seleccione un alumno:</label>
+        <select id="alumnoId" name="alumnoId" class="form-select">
+            <option value="">--Seleccione--</option>
+            @foreach (var alumno in alumnos)
+            {
+                <option value="@alumno.Id">@alumno.Nombre</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Ver estadísticas</button>
+</form>
+
+@if (estadisticas != null)
+{
+    <h3>Estadísticas de @ViewBag.AlumnoNombre</h3>
+    <ul>
+        <li>Presentes: @estadisticas.Presente</li>
+        <li>No vino: @estadisticas.NoVino</li>
+        <li>Excusa: @estadisticas.Excusa</li>
+        <li>% Presente: @estadisticas.PorcentajePresente %</li>
+    </ul>
+}

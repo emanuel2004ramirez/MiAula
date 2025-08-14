@@ -1,0 +1,57 @@
+﻿@model List<MiAula.Models.Observacion>
+
+@{
+    var alumnos = ViewBag.ListaAlumnos as List<MiAula.Models.Alumno>;
+    int seleccionado = ViewBag.AlumnoSeleccionado != null ? Convert.ToInt32(ViewBag.AlumnoSeleccionado) : 0;
+}
+
+<h2>Buscar Observaciones por Alumno</h2>
+
+<form method="get" action="/Observacion/PorAlumno">
+    <label for="alumnoId" class="form-label">Seleccione un alumno:</label>
+    <select id="alumnoId" name="alumnoId" class="form-select" required>
+        <option value="">-- Seleccione --</option>
+        @foreach (var alumno in alumnos)
+        {
+            if (alumno.Id == seleccionado)
+            {
+                <option value="@alumno.Id" selected="selected">@alumno.Nombre</option>
+            }
+            else
+            {
+                <option value="@alumno.Id">@alumno.Nombre</option>
+            }
+        }
+    </select>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<hr />
+
+@if (Model != null && Model.Count > 0)
+{
+    <h4>Observaciones encontradas:</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Comentario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obs in Model)
+            {
+                <tr>
+                    <td>@obs.Fecha</td>
+                    <td>@obs.Tipo</td>
+                    <td>@obs.Comentario</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (seleccionado != 0)
+{
+    <div class="alert alert-warning">No se encontraron observaciones para este alumno.</div>
+}
