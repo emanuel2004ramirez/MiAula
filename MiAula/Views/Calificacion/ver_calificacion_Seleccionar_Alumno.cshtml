@@ -129,38 +129,35 @@
 
     <div class="main-content">
         <h2>Lista de Clases</h2>
-        
+
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Grado</th>
-                    <th>Sección</th>
-                    <th>Horario</th>
+                    <th>Apellido</th>
                     <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var clase in Model)
+                @foreach (var alumno in Model.alumnos)
                 {
                     <tr>
-                        <td>@clase.Id</td>
-                        <td>@clase.Nombre</td>
-                        <td>@clase.Grado</td>
-                        <td>@clase.Seccion</td>
-                        <td>@clase.Horario</td>
+                        <td>@alumno.Id</td>
+                        <td>@alumno.Nombre</td>
+                        <td>@alumno.Apellido</td>
                         <td>
                             <div class="actions">
-                                
-                                <form action="VerTarea" method="get" class="planificar-form">
-                                    <input type="hidden" name="id" value="@clase.Id" />
-                                    <input type="hidden" name="grado" value="@clase.Grado" />
-                                    <input type="hidden" name="seccion" value="@clase.Seccion" />
-                                    <button type="submit" class="btn btn-primary">Ver Planificacion</button>
-                                   
+
+                                <form method="get" action="Ver_Tareas_calificadas">
+
+
+
+                                    <input type="hidden" name="id_alumno" value="@alumno.Id" />
+
+                                    <input type="hidden" name="id_clase" value="@Model.id_clase" />
+                                    <button type="submit" class="btn btn-crear">Ver Nota de Alumno</button>
                                 </form>
-                                <a class="btn btn-delete" href="DeleteP/@clase.Id">Eliminar Planificacion</a>
 
                             </div>
                         </td>
@@ -170,6 +167,8 @@
         </table>
     </div>
 
-
+    <footer>
+        &copy; 2025 - MiAula. Todos los derechos reservados.
+    </footer>
 </body>
 </html>

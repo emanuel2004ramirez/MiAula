@@ -14,6 +14,7 @@ namespace MiAula.Controllers
             return View(TareaAPI.GetTarea_By_Materia_ID(tema,id_clase));
         }
 
+      
         // GET: TareaController/Details/5
         public ActionResult Details(int id)
         {

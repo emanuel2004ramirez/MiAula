@@ -1,14 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selección de Sección</title>
+    <title>Selección de Grado</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -54,6 +49,8 @@
 
         .container {
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 2em;
         }
 
@@ -112,35 +109,70 @@
     </style>
 </head>
 <body>
-
+    <header>
+        <h1>MiAula</h1>
+    </header>
 
     <main>
-        
-        <div>
         <div class="container">
-            <form action="SeleccionarMateria2" method="get">
+            <form action="ver_calificacion_seccion" method="get">
                 <div class="option-box" onclick="this.closest('form').submit();">
-                    <h2>Sección A</h2>
-                    <p>Elige esta opción para acceder a los contenidos de la Sección A.</p>
-                    <input name="seccion" value="A" hidden />
-                    <input name="grado" value="@Model" hidden />
-                    <button type="submit">Ingresar a Sección A</button>
+                    <h2>1° Grado</h2>
+                    <p>Accede a las planificaciones de Primer Grado.</p>
+                    <input name="grado" value="1°" hidden />
+                    <button type="submit">Seleccionar</button>
                 </div>
             </form>
 
-            <form action="SeleccionarMateria2" method="get">
+            <form action="indexSeccion" method="get">
                 <div class="option-box" onclick="this.closest('form').submit();">
-                    <h2>Sección B</h2>
-                    <p>Elige esta opción para acceder a los contenidos de la Sección B.</p>
-                    <input name="seccion" value="B" hidden />
-                    <input name="grado" value="@Model" hidden />
-                    <button type="submit">Ir a Sección B</button>
+                    <h2>2° Grado</h2>
+                    <p>Accede a las planificaciones de Segundo Grado.</p>
+                    <input name="grado" value="2°" hidden />
+                    <button type="submit">Seleccionar</button>
                 </div>
             </form>
-        </div>
+
+            <form action="indexSeccion" method="get">
+                <div class="option-box" onclick="this.closest('form').submit();">
+                    <h2>3° Grado</h2>
+                    <p>Accede a las planificaciones de Tercer Grado.</p>
+                    <input name="grado" value="3°" hidden />
+                    <button type="submit">Seleccionar</button>
+                </div>
+            </form>
+
+            <form action="indexSeccion" method="get">
+                <div class="option-box" onclick="this.closest('form').submit();">
+                    <h2>4° Grado</h2>
+                    <p>Accede a las planificaciones de Cuarto Grado.</p>
+                    <input name="grado" value="4°" hidden />
+                    <button type="submit">Seleccionar</button>
+                </div>
+            </form>
+
+            <form action="indexSeccion" method="get">
+                <div class="option-box" onclick="this.closest('form').submit();">
+                    <h2>5° Grado</h2>
+                    <p>Accede a las planificaciones de Quinto Grado.</p>
+                    <input name="grado" value="5°" hidden />
+                    <button type="submit">Seleccionar</button>
+                </div>
+            </form>
+
+            <form action="indexSeccion" method="get">
+                <div class="option-box" onclick="this.closest('form').submit();">
+                    <h2>6° Grado</h2>
+                    <p>Accede a las planificaciones de Sexto Grado.</p>
+                    <input name="grado" value="6°" hidden />
+                    <button type="submit">Seleccionar</button>
+                </div>
+            </form>
         </div>
     </main>
 
-   
+    <footer>
+        <p>© 2025 - MiAula. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

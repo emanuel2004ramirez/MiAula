@@ -160,6 +160,7 @@ namespace MiAula.Services
             HttpClient client = new HttpClient();
             string url = ConexionAPI.URLBase + "/Clase/ClaseConP?grado=" + grado + "&seccion=" + seccion;
             var getTask = client.GetAsync(url);
+            
             getTask.Wait();
             var result = getTask.Result;
             if (result.StatusCode == HttpStatusCode.OK)

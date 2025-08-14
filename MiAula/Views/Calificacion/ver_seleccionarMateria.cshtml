@@ -152,16 +152,13 @@
                         <td>@clase.Horario</td>
                         <td>
                             <div class="actions">
-                                
-                                <form action="VerTarea" method="get" class="planificar-form">
-                                    <input type="hidden" name="id" value="@clase.Id" />
-                                    <input type="hidden" name="grado" value="@clase.Grado" />
-                                    <input type="hidden" name="seccion" value="@clase.Seccion" />
-                                    <button type="submit" class="btn btn-primary">Ver Planificacion</button>
-                                   
-                                </form>
-                                <a class="btn btn-delete" href="DeleteP/@clase.Id">Eliminar Planificacion</a>
 
+                                <form method="get" action="ver_calificacion_Seleccionar_Alumno">
+
+                                    <input type="hidden" name="id_clase" value="@clase.Id" />
+                                    <button type="submit" >Ver Nota</button>
+                                </form>
+                                
                             </div>
                         </td>
                     </tr>
@@ -170,6 +167,8 @@
         </table>
     </div>
 
-
+    <footer>
+        &copy; 2025 - MiAula. Todos los derechos reservados.
+    </footer>
 </body>
 </html>

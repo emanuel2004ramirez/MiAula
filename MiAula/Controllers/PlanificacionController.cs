@@ -95,13 +95,13 @@ namespace MiAula.Controllers
             try
             {
                 var temas = new List<Tema>();
-                Examen examen = null; // Variable para el examen singular.
+                Examen examen = null;  
 
-                // Validar y obtener datos básicos
+                
                 var fechainicio = collection["FechaInicio"];
                 var fechafin = collection["FechaFin"];
 
-                // Procesar Examen (se espera uno)
+                
                 float totalPuntosExamenes = 0;
                 if (!string.IsNullOrEmpty(collection["examenes[0].Nombre"]))
                 {
@@ -117,7 +117,7 @@ namespace MiAula.Controllers
                     
                 }
 
-                // El cálculo de porcentajes ahora es dinámico, no se obtiene del formulario.
+                
                 float totalPuntosTareas = 0;
 
                 int totalTemas = 0;

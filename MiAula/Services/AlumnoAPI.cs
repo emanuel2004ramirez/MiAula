@@ -125,5 +125,21 @@ namespace MiAula.Services
             }
             return alumno;
         }
+
+        public static List<Alumno> Lista_alumno_calificados(int id_clase)
+        {
+            List<Alumno> alumnos = new List<Alumno>();
+            HttpClient client = new HttpClient();
+            string url = ConexionAPI.URLBase + $"/Alumno/Lista_Alumnos_calificados?id_clase={id_clase}";
+            var getTask = client.GetAsync(url);
+            getTask.Wait();
+            var result = getTask.Result;
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                alumnos = result.Content.ReadFromJsonAsync<List<Alumno>>().Result;
+                return alumnos;
+            }
+            return alumnos;
+        }
     }
 }

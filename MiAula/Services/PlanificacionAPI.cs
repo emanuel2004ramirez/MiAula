@@ -78,7 +78,29 @@ namespace MiAula.Services
 
         }
 
+        public static Planificacion VerPlanificacion(int id_clase)
+        {
+            Planificacion p = null; 
+            HttpClient client = new HttpClient();
+            string url = ConexionAPI.URLBase + "/Planificacion?id_clase="+id_clase;
+
+
+
+            var getTask = client.GetAsync(url);
+            getTask.Wait();
+            var result = getTask.Result;
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                p = result.Content.ReadFromJsonAsync<Planificacion>().Result;
+                return p;
+            }
+            return p;
+
+
+        }
     }
+
+    
 }
 
                                                 

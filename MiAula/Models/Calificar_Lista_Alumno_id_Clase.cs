@@ -7,6 +7,7 @@
         public Alumno alumno;
         public List<Tarea> tareas;
         public Examen examen;
+        public List<Ver_Tareas_calificadas> tareas_calificadas;
 
         public Calificar_Lista_Alumno_id_Clase()
         {
@@ -15,6 +16,7 @@
             this.alumno = null;
             this.tareas = new List<Tarea>();
             this.examen = null;
+            this.tareas_calificadas = new List<Ver_Tareas_calificadas>();
         }
 
 

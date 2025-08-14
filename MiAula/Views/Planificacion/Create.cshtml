@@ -431,6 +431,7 @@
         }
 
         function renderForm() {
+
             const temasContainer = document.getElementById('temasContainer');
             const hiddenInputsContainer = document.getElementById('hiddenInputsContainer');
             const examenesContainer = document.getElementById('examenesContainer');
@@ -444,7 +445,7 @@
             let totalPuntosExamenes = 0;
             let totalTareas = 0;
 
-            // Renderizar exámenes
+          
             examenesData.forEach((examen, index) => {
                 totalPuntosExamenes += examen.valorPuntos;
                 const examenDiv = document.createElement('div');
@@ -476,7 +477,7 @@
                 agregarExamenBtn.textContent = '+ Agregar Examen';
             }
 
-            // Renderizar temas y tareas
+            
             temasData.forEach((tema, temaIndex) => {
                 let puntosTema = tema.tareas.reduce((sum, tarea) => sum + tarea.valorPuntos, 0);
                 totalPuntosTareas += puntosTema;

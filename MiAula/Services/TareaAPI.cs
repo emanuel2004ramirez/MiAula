@@ -56,5 +56,56 @@ namespace MiAula.Services
             return examen;
 
         }
+
+        public static bool Calificar_Tarea(List<calificacion_tarea> tarea)
+        {
+
+            
+            HttpClient client = new HttpClient();
+            string url = ConexionAPI.URLBase + "/Tarea";
+            var json = System.Text.Json.JsonSerializer.Serialize(tarea);
+            Console.WriteLine(json);
+
+            var postTask = client.PostAsJsonAsync(url, tarea);
+            postTask.Wait();
+            var result = postTask.Result;
+
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        public static bool Calificar_Examen(calificacion_examen examen)
+        {
+            HttpClient client = new HttpClient();
+            string url = ConexionAPI.URLBase + "/Tarea/CalificarExamen";
+            var postTask = client.PostAsJsonAsync(url, examen);
+            postTask.Wait();
+            var result = postTask.Result;
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static Tarea Tarea_ByID(int id)
+        {
+            Tarea tarea = null;
+            HttpClient client = new HttpClient();
+            string url = ConexionAPI.URLBase + "/Tarea/tarea/"+id;
+            var getTask = client.GetAsync(url);
+            getTask.Wait();
+            var result = getTask.Result;
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                tarea = result.Content.ReadFromJsonAsync<Tarea>().Result;
+                return tarea;
+            }
+            return tarea;
+        }
     }
 }
