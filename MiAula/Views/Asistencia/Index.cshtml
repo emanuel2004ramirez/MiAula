@@ -1,0 +1,29 @@
+﻿@model List<Alumno>
+
+<h2>Pasar lista</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Alumno</th>
+        <th>Estado</th>
+        <th>Acción</th>
+    </tr>
+    @foreach (var alumno in Model)
+    {
+        <tr>
+            <td>@alumno.Nombre</td>
+            <td>
+                <form method="post" action="/Asistencia/Create_Asistencia">
+                    <input type="hidden" name="AlumnoId" value="@alumno.Id" />
+                    <select name="Estado" class="form-select">
+                        <option value="">-----------</option>
+                        <option value="Presente">Presente</option>
+                        <option value="No vino">No vino</option>
+                        <option value="Excusa">Excusa</option>
+                    </select>
+            <td>  <button type="submit" class="btn btn-primary">Registrar</button></td>
+                  
+                </form>
+            </td>
+        </tr>
+    }
+</table>

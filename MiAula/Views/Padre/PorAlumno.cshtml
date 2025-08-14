@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<MiAula.Models.Padre>
+
+@{
+    var alumnos = ViewBag.ListaAlumnos as List<MiAula.Models.Alumno>;
+    int seleccionado = ViewBag.AlumnoSeleccionado != null ? Convert.ToInt32(ViewBag.AlumnoSeleccionado) : 0;
+}
+
+<h2>Buscar Padres por Alumno</h2>
+
+<form method="get" action="/Padre/PorAlumno">
+    <label for="alumnoId" class="form-label">Seleccione un alumno:</label>
+    <select id="alumnoId" name="alumnoId" class="form-select" required>
+        <option value="">-- Seleccione --</option>
+        @foreach (var alumno in alumnos)
+        {
+            if (alumno.Id == seleccionado)
+            {
+                <option value="@alumno.Id" selected="selected">@alumno.Nombre</option>
+            }
+            else
+            {
+                <option value="@alumno.Id">@alumno.Nombre</option>
+            }
+        }
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+</form>
+
+<hr />
+
+@if (Model != null && Model.Count > 0)
+{
+    <h4>Padres encontrados:</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Relación</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var padre in Model)
+            {
+                <tr>
+                    <td>@padre.Nombre</td>
+                    <td>@padre.Apellido</td>
+                    <td>@padre.Relacion</td>
+                    <td>@padre.Telefono</td>
+                    <td>@padre.Correo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (seleccionado != 0)
+{
+    <div class="alert alert-warning">No se encontraron padres para este alumno.</div>
+}

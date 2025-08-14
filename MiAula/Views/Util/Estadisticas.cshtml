@@ -1,0 +1,58 @@
+﻿@model List<MiAula.Models.UtilEstadistica>
+@{
+    var clases = ViewBag.ListaClases as List<MiAula.Models.Clase>;
+    int claseSeleccionada = ViewBag.ClaseSeleccionada != null ? (int)ViewBag.ClaseSeleccionada : 0;
+}
+
+<h2>Estadísticas de Útiles por Clase</h2>
+
+<form method="get" action="/Util/Estadisticas">
+    <label for="claseId">Seleccione una clase:</label>
+    <select id="claseId" name="claseId" class="form-select" required>
+        <option value="">-- Seleccione --</option>
+        @foreach (var clase in clases)
+        {
+            if (clase.Id == claseSeleccionada)
+            {
+                <option value="@clase.Id" selected>@clase.Nombre</option>
+            }
+            else
+            {
+                <option value="@clase.Id">@clase.Nombre</option>
+            }
+        }
+    </select>
+
+    <button type="submit" class="btn btn-primary">Ver estadísticas</button>
+</form>
+
+<hr />
+
+@if (Model != null && Model.Count > 0)
+{
+    var datos = Model.First();
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Obligatorios</th>
+                <th>Opcionales</th>
+                <th>Total</th>
+                <th>% Obligatorios</th>
+                <th>% Opcionales</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@datos.Obligatorios</td>
+                <td>@datos.Opcionales</td>
+                <td>@datos.Total</td>
+                <td>@datos.PorcentajeObligatorios%</td>
+                <td>@datos.PorcentajeOpcionales%</td>
+            </tr>
+        </tbody>
+    </table>
+}
+else if (claseSeleccionada != 0)
+{
+    <div class="alert alert-warning">No hay datos para esta clase.</div>
+}

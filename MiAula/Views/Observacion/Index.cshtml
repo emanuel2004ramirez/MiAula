@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Observacion
+@{
+    var alumnos = ViewBag.ListaAlumnos as List<Alumno>;
+}
+
+<h2>Crear Observación</h2>
+
+<form asp-action="Crear" method="post">
+    <div class="mb-3">
+        <label for="AlumnoId" class="form-label">Alumno:</label>
+        <select id="AlumnoId" name="AlumnoId" class="form-select" required>
+            <option value="">--Seleccione--</option>
+            @foreach (var alumno in alumnos)
+            {
+                <option value="@alumno.Id">@alumno.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="Tipo" class="form-label">Tipo de observación:</label>
+        <select id="Tipo" name="Tipo" class="form-select" required>
+            <option value="">--Seleccione--</option>
+            <option value="Conducta">Conducta</option>
+            <option value="Académica">Académica</option>
+            <option value="Asistencia">Asistencia</option>
+            <option value="Social/Emocional">Social / Emocional</option>
+            <option value="Extra">Extra / Miscelánea</option>
+        </select>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="Comentario" class="form-label">Comentario:</label>
+        <textarea id="Comentario" name="Comentario" class="form-control" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Observación</button>
+</form>
